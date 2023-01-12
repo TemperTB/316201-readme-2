@@ -11,7 +11,7 @@ async function fillDb() {
       posts: {
         create: [
           {
-            original_id: 1,
+            originalId: 1,
             userId: '11',
             authorId: '11',
             status: 'Опубликована',
@@ -31,7 +31,7 @@ async function fillDb() {
       posts: {
         create: [
           {
-            original_id: 2,
+            originalId: 2,
             userId: '12',
             authorId: '12',
             status: 'Опубликована',
@@ -45,14 +45,14 @@ async function fillDb() {
     }
   });
   await prisma.type.upsert({
-    where: { id: 2 },
+    where: { id: 3 },
     update: {},
     create: {
       title: 'Цитата',
       posts: {
         create: [
           {
-            original_id: 3,
+            originalId: 3,
             userId: '13',
             authorId: '13',
             status: 'Опубликована',
@@ -72,7 +72,7 @@ async function fillDb() {
       posts: {
         create: [
           {
-            original_id: 4,
+            originalId: 4,
             userId: '14',
             authorId: '14',
             status: 'Опубликована',
@@ -91,7 +91,7 @@ async function fillDb() {
       posts: {
         create: [
           {
-            original_id: 5,
+            originalId: 5,
             userId: '15',
             authorId: '15',
             status: 'Опубликована',

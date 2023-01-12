@@ -1,7 +1,7 @@
 import { CRUDRepository } from '@readme/core';
 import { BlogTypeEntity } from './blog-type.entity';
 import { Type } from '@readme/shared-types';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -30,12 +30,20 @@ export class BlogTypeRepository implements CRUDRepository<BlogTypeEntity, number
     });
   }
 
-  public find(ids: number[] = []): Promise<Type[]> {
+  public findAll(ids: number[] = []): Promise<Type[]> {
     return this.prisma.type.findMany({
       where: {
         id: {
           in: ids.length > 0 ? ids : undefined
         }
+      }
+    });
+  }
+
+  public find(title: string): Promise<Type> {
+    return this.prisma.type.findFirst({
+      where: {
+        title
       }
     });
   }

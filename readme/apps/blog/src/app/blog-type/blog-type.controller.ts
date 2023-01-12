@@ -20,8 +20,8 @@ export class BlogTypeController {
 
   @Get('/')
   async index() {
-    const types = await this.blogTypeService.getTypes();
-    return fillObject(TypeRdo, types);
+    const type = await this.blogTypeService.getTypes();
+    return fillObject(TypeRdo, type);
   }
 
   @Post('/')

@@ -3,14 +3,14 @@ import { Comment } from './comment.interface';
 
 export interface Post {
   id?: number;
-  original_id?: number;
+  originalId?: number;
   createdAt?: Date;
   publishAt?: Date;
   userId: string;
   authorId?: string;
   status?: string;
   isRepost?: boolean;
-  types: Type[];
+  type?: Type;
   comments?: Comment[];
   tags?: string[];
   title?: string;

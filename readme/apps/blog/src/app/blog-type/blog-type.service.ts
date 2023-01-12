@@ -25,7 +25,7 @@ export class BlogTypeService {
   }
 
   async getTypes(): Promise<Type[]> {
-    return this.blogTypeRepository.find();
+    return this.blogTypeRepository.findAll();
   }
 
   async updateType(id: number, dto: UpdateTypeDto): Promise<Type> {

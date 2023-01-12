@@ -1,10 +1,19 @@
+
 export class CreatePostDto {
-  public title: string;
-  public announceText: string;
-  public text: string;
   public userId: string;
-  public categories: number[];
+  public authorId: string;
+  public status: string;
+  public isRepost: boolean;
+  public type: string;
+  public tags: string[];
+  public title: string;
+  public linkVideo: string;
+  public announcementText: string;
+  public contentText: string;
+  public authorQuote: string;
+  public textQuote: string;
+  public linkPhoto: string;
+  public urlLink: string;
+  public descriptionLink: string;
 }
 
-
-//TODO сделать типы
