@@ -1,5 +1,5 @@
-import { Type } from './type.interface';
 import { Comment } from './comment.interface';
+import { Type } from './type.interface';
 
 export interface Post {
   id?: number;
@@ -7,12 +7,12 @@ export interface Post {
   createdAt?: Date;
   publishAt?: Date;
   userId: string;
-  authorId?: string;
-  status?: string;
-  isRepost?: boolean;
-  type?: Type;
-  comments?: Comment[];
-  tags?: string[];
+  authorId: string;
+  status: string;
+  isRepost: boolean;
+  type: Type;
+  comments: Comment[];
+  tags: string[];
   title?: string;
   linkVideo?: string;
   announcementText?: string;

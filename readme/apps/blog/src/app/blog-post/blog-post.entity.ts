@@ -1,4 +1,4 @@
-import { Type, Post, Comment } from '@readme/shared-types';
+import { Post, Comment, Type } from '@readme/shared-types';
 import { Entity } from '@readme/core';
 
 export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
@@ -52,8 +52,8 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public toObject(): BlogPostEntity {
     return {
       ...this,
+      type: this.type.id,
       comments: this.comments.map(({id}) => ({id})),
-      type: this.type.id
     };
   }
 
