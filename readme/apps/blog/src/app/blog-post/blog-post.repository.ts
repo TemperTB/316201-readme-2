@@ -3,6 +3,8 @@ import { BlogPostEntity } from './blog-post.entity';
 import { Post } from '@readme/shared-types';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
+import { PostQuery } from './query/post.query';
+import { PostSortField, PostStatus } from './blog-post.constant';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
@@ -10,16 +12,11 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
   public async create(item: BlogPostEntity): Promise<Post> {
     const entityData = item.toObject();
+    console.log(entityData);
     return this.prisma.post.create({
       data: {
         ...entityData,
-        comments: {
-          connect: [],
-        },
       },
-      include: {
-        comments: true,
-      }
     });
   }
 
@@ -37,18 +34,32 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         id
       },
       include: {
-        comments: true,
         type: true,
       }
     });
   }
 
-  public find(): Promise<Post[]> {
+  public find({limit, types, sortType, sortDirection, page, userId, statusPosts}: PostQuery): Promise<Post[]> {
+    const sortField = { [PostSortField[sortType]]: sortDirection };
+    const status = PostStatus[statusPosts];
     return this.prisma.post.findMany({
+      where: {
+        typeId: {
+          in: types
+        },
+        userId,
+        status,
+      },
+      take: limit,
       include: {
-        comments: true,
         type: true
-      }
+      },
+      orderBy: [
+        {
+          ...sortField
+        }
+      ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 

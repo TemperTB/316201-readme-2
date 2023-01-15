@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { Type, Comment} from '@readme/shared-types';
+import { Comment, Type} from '@readme/shared-types';
 
 export class PostRdo {
   @Expose()
@@ -65,3 +65,4 @@ export class PostRdo {
 }
 
 
+//TODO OpenAPI сделать документацию

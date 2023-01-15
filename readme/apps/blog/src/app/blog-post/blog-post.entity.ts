@@ -1,4 +1,4 @@
-import { Post, Comment, Type, } from '@readme/shared-types';
+import { Post } from '@readme/shared-types';
 import { Entity } from '@readme/core';
 
 export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
@@ -10,8 +10,9 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public authorId: string;
   public status: string;
   public isRepost: boolean;
-  public type: Type;
-  public comments: Comment[];
+  public typeId: number;
+  public commentsCount: number;
+  public likesCount: number;
   public tags: string[];
   public title: string;
   public linkVideo: string;
@@ -28,14 +29,16 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   }
 
   public fillEntity(entity: Post): void {
+    this.originalId = entity.originalId || entity.id;
     this.createdAt = new Date();
     this.publishAt = new Date();
     this.userId = entity.userId;
     this.authorId = entity.userId;
     this.status = entity.status;
     this.isRepost = entity.isRepost;
-    this.type = entity.type;
-    this.comments = entity.comments;
+    this.typeId = entity.typeId;
+    this.commentsCount = entity.commentsCount || 0;
+    this.likesCount = entity.likesCount || 0;
     this.tags = entity.tags;
     this.title = entity.title;
     this.linkVideo = entity.linkVideo;
@@ -52,7 +55,6 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public toObject(): BlogPostEntity {
     return {
       ...this,
-      comments: this.comments.map(({id}) => ({id})),
     };
   }
 

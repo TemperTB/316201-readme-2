@@ -5,6 +5,7 @@ import {BlogPostEntity} from './blog-post.entity';
 import {UpdatePostDto} from './dto/update-post.dto';
 import {Injectable} from '@nestjs/common';
 import {BlogTypeRepository} from '../blog-type/blog-type.repository';
+import { PostQuery } from './query/post.query';
 
 @Injectable()
 export class BlogPostService {
@@ -15,7 +16,8 @@ export class BlogPostService {
 
   async createPost(dto: CreatePostDto): Promise<Post> {
     const type = await this.blogTypeRepository.find(dto.type);
-    const postEntity = new BlogPostEntity({ ...dto, type, comments: [] });
+    const typeId = type.id;
+    const postEntity = new BlogPostEntity({ ...dto, typeId});
     return this.blogPostRepository.create(postEntity);
   }
 
@@ -27,8 +29,8 @@ export class BlogPostService {
     return this.blogPostRepository.findById(id);
   }
 
-  async getPosts(): Promise<Post[]> {
-    return this.blogPostRepository.find();
+  async getPosts(query: PostQuery): Promise<Post[]> {
+    return this.blogPostRepository.find(query);
   }
 
   async updatePost(_id: number, _dto: UpdatePostDto): Promise<Post> {

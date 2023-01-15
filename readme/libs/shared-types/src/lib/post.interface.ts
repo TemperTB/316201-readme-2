@@ -1,6 +1,3 @@
-import { Comment } from './comment.interface';
-import { Type } from './type.interface';
-
 export interface Post {
   id?: number;
   originalId?: number;
@@ -10,8 +7,9 @@ export interface Post {
   authorId: string;
   status: string;
   isRepost: boolean;
-  type: Type;
-  comments: Comment[];
+  typeId: number;
+  commentsCount?: number;
+  likesCount?: number;
   tags: string[];
   title?: string;
   linkVideo?: string;

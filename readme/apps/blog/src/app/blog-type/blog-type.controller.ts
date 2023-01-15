@@ -12,9 +12,8 @@ export class BlogTypeController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const typeId = parseInt(id, 10);
-    const existType = await this.blogTypeService.getType(typeId);
+  async show(@Param('id') id: number) {
+    const existType = await this.blogTypeService.getType(id);
     return fillObject(TypeRdo, existType);
   }
 
@@ -32,15 +31,13 @@ export class BlogTypeController {
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async destroy(@Param('id') id: string) {
-    const typeId = parseInt(id, 10);
-    this.blogTypeService.deleteType(typeId);
+  async destroy(@Param('id') id: number) {
+    this.blogTypeService.deleteType(id);
   }
 
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() dto: UpdateTypeDto) {
-    const typeId = parseInt(id, 10);
-    const updatedType = await this.blogTypeService.updateType(typeId, dto)
+  async update(@Param('id') id: number, @Body() dto: UpdateTypeDto) {
+    const updatedType = await this.blogTypeService.updateType(id, dto)
     return fillObject(TypeRdo, updatedType);
   }
 }

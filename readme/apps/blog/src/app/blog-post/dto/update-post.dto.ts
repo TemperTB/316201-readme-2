@@ -11,3 +11,5 @@ export class UpdatePostDto {
   public urlLink?: string;
   public descriptionLink?: string;
 }
+
+//TODO OpenAPI сделать документацию
