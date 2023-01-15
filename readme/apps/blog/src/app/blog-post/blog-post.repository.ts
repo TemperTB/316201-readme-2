@@ -10,20 +10,15 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
   public async create(item: BlogPostEntity): Promise<Post> {
     const entityData = item.toObject();
-    console.log(entityData)
     return this.prisma.post.create({
       data: {
         ...entityData,
-        type: {
-          connect: entityData.type,
-        },
         comments: {
           connect: [],
         },
       },
       include: {
         comments: true,
-        type: true,
       }
     });
   }
