@@ -5,6 +5,8 @@ import { PostRdo } from './rdo/post.rdo';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdateTypeDto } from '../blog-type/dto/update-type.dto';
 import { PostQuery } from './query/post.query';
+import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('posts')
 @Controller('posts')
