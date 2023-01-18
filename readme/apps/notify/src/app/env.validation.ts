@@ -6,9 +6,9 @@ const MIN_PORT = 0;
 const MAX_PORT = 65535;
 
 class EnvironmentsConfig {
-  @IsString({
-    message: EnvValidationMessage.DBNameRequired
-  })
+  // @IsString({
+  //   message: EnvValidationMessage.DBNameRequired
+  // })
   public MONGO_DB: string;
 
   @IsString({
@@ -38,24 +38,24 @@ class EnvironmentsConfig {
   })
   public MONGO_AUTH_BASE: string;
 
-  @IsString({
-    message: EnvValidationMessage.RMQUserRequired
-  })
+  // @IsString({
+  //   message: EnvValidationMessage.RMQUserRequired
+  // })
   public RABBIT_USER: string;
 
-  @IsString({
-    message: EnvValidationMessage.RMQPasswordRequired
-  })
+  // @IsString({
+  //   message: EnvValidationMessage.RMQPasswordRequired
+  // })
   public RABBIT_PASSWORD: string;
 
-  @IsString({
-    message: EnvValidationMessage.RMQHostRequired
-  })
+  // @IsString({
+  //   message: EnvValidationMessage.RMQHostRequired
+  // })
   public RABBIT_HOST: string;
 
-  @IsString({
-    message: EnvValidationMessage.RMQSubscriberQueue
-  })
+  // @IsString({
+  //   message: EnvValidationMessage.RMQSubscriberQueue
+  // })
   public RABBIT_NOTIFY_SERVICE_QUEUE: string;
 
   @IsString({
