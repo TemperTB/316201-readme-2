@@ -3,7 +3,7 @@ POST http://localhost:3333/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "temper_tb@mail.ru",
+  "email": "temper_tb33@mail.ru",
   "name": "Kriger Aleksandr",
   "password": "123456"
 }
