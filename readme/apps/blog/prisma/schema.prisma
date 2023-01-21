@@ -1,6 +1,22 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// P.S.:
+// 1. Клиент (сlient prisma) предназначен для доступа и проведения всех операций в базе данных,
+// по аналогии с model в mongoDB.
+// 2. При изменении схем базы необходимо заново сгенерировать client prisma, иначе клиент не будет соответствовать действительности.
+// Для генерации клиента предусмотрена самописная команда db-generate в project.json приложения blog (nx run blog:db-migrate).
+// 3. В поле output необходимо указать путь к папке node_modules, т.к. в проекте используется монорепозиторий,
+// в противном случае client будет сгенерирован в новой папке node_modules в директории blog.
+// Однако, при использовани одного пакета prisma для нескольких микро-сервисов придется создавать несколько директорий
+// node_modules.
+// 4. В project.json предусмотрены команды автомитизирующие работу с prisma при разработке:
+// - db-validate (валидация схемы schema.prisma)
+// - db-migrate (применение всех миграций)
+// - db-reset (очищает всю базу данных)
+// - db-generate (конфигурирует prisma client)
+// - db-fill (заполнение базы данными из файла seed.ts, специально для этого создан файл package.json)
+
 generator client {
   provider = "prisma-client-js"
   output   = "../../../node_modules/.prisma/client"
@@ -11,41 +27,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id               Int       @id @default(autoincrement())
-  originalId       Int?
-  createdAt        DateTime  @default(now())
-  publishAt        DateTime  @default(now())
-  userId           String
-  authorId         String
-  status           String
-  isRepost         Boolean
-  type             Type     @relation(fields: [typeId], references: [id])
-  typeId           Int
-  comments         Comment[]
-  tags             String[]
-  title            String?
-  linkVideo        String?
-  announcementText String?
-  contentText      String?
-  authorQuote      String?
-  textQuote        String?
-  linkPhoto        String?
-  urlLink          String?
-  descriptionLink  String?
+enum PublicationType {
+  Video
+  Text
+  Quote
+  Photo
+  Link
 }
 
-model Type {
-  id               Int    @id @default(autoincrement())
-  title            String
-  posts            Post[]
+model Publication {
+  id              Int             @id @default(autoincrement())
+  originalId      Int             @default(0)
+  type            PublicationType
+  isPublished     Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @default(now())
+  likesCount      Int             @default(0)
+  commentsCount   Int             @default(0)
+  isRepublication Boolean         @default(false)
+  content         Json
+  userId          String
+  originalUserId  String
+  likes           Like[]
+  comments        Comment[]
+  tags            Tag[]
+
+  @@map("publications")
+}
+
+model Tag {
+  name        String        @id
+  publication Publication[]
+
+  @@map("tags")
+}
+
+model Like {
+  userId        String
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  publicationId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
+
+  @@id([userId, publicationId])
+  @@map("likes")
 }
 
 model Comment {
-  id               Int      @id @default(autoincrement())
-  createdAt        DateTime @default(now())
-  text             String
-  userId           String
-  post             Post     @relation(fields: [postId], references: [id])
-  postId           Int
+  id            Int         @id @default(autoincrement())
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  publicationId Int
+  userId        String
+  content       String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
+
+  @@map("comments")
 }

@@ -1,6 +1,20 @@
-export const AUTH_USER_EXISTS = 'User with this email exists';
-export const AUTH_USER_NOT_FOUND = 'User not found';
-export const AUTH_USER_PASSWORD_WRONG = 'User password is wrong';
-export const AUTH_USER_EMAIL_NOT_VALID = 'The email is not valid';
+export const UserAuthMessages = {
+  ALREADY_EXISTS: 'User with this email already exists',
+  NOT_FOUND: 'User not found',
+  WRONG_PASSWORD: 'User password is wrong',
+  WRONG_LOGIN: 'User login is wrong.',
+  CREATE: 'Creates a new user.',
+  UPDATE: "Updates the user's profile data",
+  LOGIN: "User's login procedure",
+  PASSWORD_CHANGE: "Updates the user's password",
+  NOTIFY: 'Launching notification distribution',
+} as const;
 
-export const RABBITMQ_SERVICE = Symbol('RABBITMQ_SERVICE');
+export enum UserValidity {
+  NameMinLength = 3,
+  NameMaxLength = 50,
+  PasswordMinLength = 6,
+  PasswordMaxLength = 12,
+  AvatarMaxWeight = 500,  // in Kbytes
+}
+

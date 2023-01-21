@@ -1,42 +1,40 @@
-
-import { ApiProperty, } from '@nestjs/swagger';
-import {Expose, Transform} from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UserRdo {
-
   @ApiProperty({
-    description: 'ID пользователя (уникален)',
-    example: '777'
+    description: 'User unique identifier',
+    example: '62af63e1dd748f35bcf66943',
   })
   @Transform(({ obj }) => obj._id.toString())
-  @Expose({ name: '_id'})
+  @Expose({ name: '_id' })
   public id: string;
 
   @ApiProperty({
-    description: 'Путь к аватару пользователя',
-    example: '/images/user.png'
-  })
-  @Expose()
-  public avatar: string;
-
-  @ApiProperty({
-    description: 'Дата регистрации пользователя (ISO format)',
-    example: '2022-01-01'
-  })
-  @Expose()
-  public dayRegister: Date;
-
-  @ApiProperty({
-    description: 'E-mail пользователя',
-    example: 'mail@mail.ru'
+    description: 'User unique email address',
+    example: 'user@user.ru',
   })
   @Expose()
   public email: string;
 
   @ApiProperty({
-    description: 'User name',
-    example: 'Алексей'
+    description: 'User first name',
+    example: 'John',
   })
   @Expose()
-  public name: string;
+  public firstName: string;
+
+  @ApiProperty({
+    description: 'User last name',
+    example: 'Doe',
+  })
+  @Expose()
+  public lastName: string;
+
+  @ApiProperty({
+    description: 'User avatar path',
+    example: '/img/avatar.jpg',
+  })
+  @Expose()
+  public avatar: string;
 }

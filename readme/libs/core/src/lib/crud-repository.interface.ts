@@ -1,6 +1,6 @@
-export interface CRUDRepository<E, I, R> {
-  findById(id: I): Promise<R | null>;
-  create(item: E): Promise<R>;
-  update(id: I, item: E): Promise<R>;
-  destroy(id: I): Promise<void>;
+export interface CRUDRepositoryInterface<Entity, Id, ReturnType> {
+  findById(id: Id): Promise<ReturnType | null>;
+  create(item: Entity): Promise<ReturnType>;
+  update(id: Id, item: Partial<Entity>): Promise<ReturnType>;
+  destroy(id: Id): Promise<void>;
 }

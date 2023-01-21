@@ -9,13 +9,16 @@ const SUBSCRIBERS_COLLECTION_NAME = 'email-subscribers';
   timestamps: true,
 })
 export class EmailSubscriberModel extends Document implements  Subscriber {
-  @Prop()
+  @Prop({ required: true, trim: true })
   public email: string;
 
-  @Prop()
-  public name: string;
+  @Prop({ required: true, trim: true })
+  public firstName: string;
 
-  @Prop()
+  @Prop({ required: true, trim: true })
+  public lastName: string;
+
+  @Prop({ required: true, trim: true })
   public userId: string;
 }
 
