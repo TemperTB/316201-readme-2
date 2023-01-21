@@ -3,108 +3,116 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function fillDb() {
-  await prisma.type.upsert({
+  await prisma.publication.upsert({
     where: { id: 1 },
     update: {},
     create: {
-      title: 'Видео',
-      posts: {
+      originalId: 1,
+      userId: 'userId#1',
+      originalUserId: 'userId#1',
+      type: 'Link',
+      content: {
+        link: 'wwww.someVideoLink.com',
+        linkDescription: 'This is a non-existent link to a non-existent video',
+      },
+      comments: {
         create: [
           {
-            originalId: 1,
-            userId: '11',
-            authorId: '11',
-            status: 'Опубликована',
-            title: 'Смешное видео с котиками',
-            isRepost: false,
-            linkVideo: 'https://youtube.com/funnyCatsVideo'
+            userId: 'userId#1',
+            content: "This comment from user #1 for publication #1"
           },
+          {
+            userId: 'userId#2',
+            content: "This comment from user #2 for publication #1"
+          }
         ]
       },
+      tags: {
+        create: [
+          {
+            name: 'someTag#1',
+          },
+          {
+            name: 'someTag#2',
+          }
+        ]
+      }
     }
   });
-  await prisma.type.upsert({
+  await prisma.publication.upsert({
     where: { id: 2 },
     update: {},
     create: {
-      title: 'Текст',
-      posts: {
+      originalId: 2,
+      userId: 'userId#2',
+      originalUserId: 'userId#2',
+      type: 'Text',
+      content: {
+        title: 'This is the title for Text publication',
+        announcement: 'This is an announcement for Text publication',
+        text: 'This is the content for Text publication',
+      },
+      comments: {
         create: [
           {
-            originalId: 2,
-            userId: '12',
-            authorId: '12',
-            status: 'Опубликована',
-            isRepost: false,
-            title: 'Один день из жизни программиста',
-            announcementText: 'Если вы думаете, что программисты сидят у бассейна, держа в руках ультрабук с экраном в 10 дюймов и пьют по 3-4 маргариты каждый день, то подумайте еще раз',
-            contentText: 'Сегодня я расскажу вам одну позновательную историю о том, почему не нужно переучиваться и становиться программистом.'
+            userId: 'userId#1',
+            content: "This comment from user #1 for publication #2"
           },
+          {
+            userId: 'userId#2',
+            content: "This comment from user #2 for publication #2"
+          }
         ]
       },
+      tags: {
+        create: [
+          {
+            name: 'someTag#3',
+          },
+          {
+            name: 'someTag#4',
+          }
+        ]
+      }
     }
   });
-  await prisma.type.upsert({
+  await prisma.publication.upsert({
     where: { id: 3 },
     update: {},
     create: {
-      title: 'Цитата',
-      posts: {
+      originalId: 3,
+      userId: 'userId#3',
+      originalUserId: 'userId#3',
+      type: 'Quote',
+      content: {
+        quote: 'This is the content for Quote publication',
+        quoteAuthor: 'John Doe',
+      },
+      comments: {
         create: [
           {
-            originalId: 3,
-            userId: '13',
-            authorId: '13',
-            status: 'Опубликована',
-            isRepost: false,
-            authorQuote: 'Виталий Кличко',
-            textQuote: 'А сегодня в завтрашний день не все могут смотреть. Вернее смотреть могут не только лишь все, мало кто может это делать'
+            userId: 'userId#3',
+            content: "This comment from user #3 for publication #3"
           },
+          {
+            userId: 'userId#4',
+            content: "This comment from user #4 for publication #3"
+          }
         ]
       },
-    }
-  });
-  await prisma.type.upsert({
-    where: { id: 4 },
-    update: {},
-    create: {
-      title: 'Фотография',
-      posts: {
+      tags: {
         create: [
           {
-            originalId: 4,
-            userId: '14',
-            authorId: '14',
-            status: 'Опубликована',
-            isRepost: false,
-            linkPhoto: 'https://photo.ru/photo/1'
+            name: 'someTag#5',
           },
-        ]
-      },
-    }
-  });
-  await prisma.type.upsert({
-    where: { id: 5 },
-    update: {},
-    create: {
-      title: 'Ссылка',
-      posts: {
-        create: [
           {
-            originalId: 5,
-            userId: '15',
-            authorId: '15',
-            status: 'Опубликована',
-            isRepost: false,
-            urlLink: 'https://ru.wikipedia.org/wiki/PostgreSQL',
-            descriptionLink: 'PostgreSQL'
-          },
+            name: 'someTag#6',
+          }
         ]
-      },
+      }
     }
   });
-
-  console.info('🤘️ Database was filled')
+  console.info('🤘️ Database was filled');
 }
 
 fillDb()

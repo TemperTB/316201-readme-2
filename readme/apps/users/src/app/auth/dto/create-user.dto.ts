@@ -1,30 +1,41 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsString } from 'class-validator';
-import { AUTH_USER_EMAIL_NOT_VALID} from '../auth.constant';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, MaxLength, MinLength } from 'class-validator';
+import { ValidityMessage as VM } from '@readme/core';
+import { UserValidity as UV } from '../auth.constant';
 
 export class CreateUserDto {
-
   @ApiProperty({
-    description: 'Уникальный e-mail пользователя',
-    example: 'user@user.ru'
+    description: 'User unique email address',
+    example: 'user@user.ru',
+    required: true,
   })
-  @IsEmail(
-    {},
-    {message: AUTH_USER_EMAIL_NOT_VALID},
-  )
+  @IsEmail({}, { message: VM.IsEmailMessage })
   public email: string;
 
   @ApiProperty({
-    description: 'Имя пользователя',
-    example: 'Алексей',
+    description: 'User first name',
+    example: 'John',
+    required: true,
   })
-  @IsString()
-  public name: string;
+  @MinLength(UV.NameMinLength, { message: VM.MinValueMessage })
+  @MaxLength(UV.NameMaxLength, { message: VM.MaxValueMessage })
+  public firstName: string;
 
   @ApiProperty({
-    description: 'Пароль пользователя',
-    example: '123456'
+    description: 'User last name',
+    example: 'Doe',
+    required: true,
   })
-  @IsString()
+  @MinLength(UV.NameMinLength, { message: VM.MinValueMessage })
+  @MaxLength(UV.NameMaxLength, { message: VM.MaxValueMessage })
+  public lastName: string;
+
+  @ApiProperty({
+    description: 'User password',
+    example: '12345',
+    required: true,
+  })
+  @MinLength(UV.PasswordMinLength, { message: VM.MinValueMessage })
+  @MaxLength(UV.PasswordMaxLength, { message: VM.MaxValueMessage })
   public password: string;
 }

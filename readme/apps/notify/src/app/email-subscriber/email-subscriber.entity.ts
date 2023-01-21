@@ -1,20 +1,22 @@
 import { Entity } from '@readme/core';
 import { Subscriber } from '@readme/shared-types';
 
-export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Subscriber {
+export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity, Subscriber>, Subscriber {
   public id: string;
   public email: string;
-  public name: string;
+  public firstName: string;
+  public lastName: string;
   public userId: string;
 
   constructor(emailSubscriber: Subscriber) {
     this.fillEntity(emailSubscriber);
   }
 
-  public fillEntity(entity) {
+  public fillEntity(entity: Subscriber) {
     this.email = entity.email;
     this.userId = entity.userId;
-    this.name = entity.lastname;
+    this.lastName = entity.firstName;
+    this.firstName = entity.lastName;
     this.id = entity.id ?? '';
   }
 

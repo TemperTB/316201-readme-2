@@ -1,28 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {Expose} from 'class-transformer';
+import { Expose } from 'class-transformer';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { UserRdo } from './user.rdo';
 
-export class LoggedUserRdo {
-
+export class LoggedUserRdo extends OmitType(UserRdo, ['firstName', 'lastName']) {
   @ApiProperty({
-    description: 'ID пользователя (уникален)',
-    example: '707'
-  })
-  @Expose({name: '_id'})
-  public id: string;
-
-  @ApiProperty({
-    description: 'E-mail пользователя',
-    example: 'mail@mail.ru'
+    description: 'User access token',
+    example: 'eyJhbGciOiJIUzI1NiJ9...',
+    required: true,
   })
   @Expose()
-  public email: string;
-
-  @ApiProperty({
-    description: 'Токен доступа',
-    example: 'mail@mail.ru'
-  })
-  @Expose()
-  public accessToken: string;
+  public token: string;
 }
-
-
